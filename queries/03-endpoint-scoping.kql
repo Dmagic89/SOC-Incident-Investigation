@@ -1,0 +1,18 @@
+// Endpoint scoping and timeline investigation
+// Purpose: Review process activity around the suspicious network connection
+// to determine what occurred before and during PowerShell execution.
+
+DeviceProcessEvents
+| where DeviceName == "HR-WS-12"
+| where Timestamp between (
+    datetime(2026-09-30 10:45:00) ..
+    datetime(2026-09-30 11:00:00)
+)
+| project Timestamp,
+          DeviceName,
+          AccountName,
+          FileName,
+          ProcessCommandLine,
+          InitiatingProcessFileName,
+          InitiatingProcessCommandLine
+| order by Timestamp asc
