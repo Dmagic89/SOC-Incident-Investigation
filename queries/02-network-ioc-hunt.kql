@@ -1,0 +1,12 @@
+// Environment-wide network IOC hunt
+// Purpose: Identify endpoints communicating with the suspicious external IP.
+
+DeviceNetworkEvents
+| where RemoteIP == "185.XX.XX.42"
+| project Timestamp,
+          DeviceName,
+          InitiatingProcessFileName,
+          InitiatingProcessCommandLine,
+          RemoteIP,
+          RemotePort
+| order by Timestamp desc
