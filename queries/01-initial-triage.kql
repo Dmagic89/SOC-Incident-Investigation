@@ -1,0 +1,14 @@
+// Initial PowerShell triage for suspected endpoint
+// Purpose: Identify PowerShell executions and their parent processes on FIN-WS-07.
+
+DeviceProcessEvents
+| where DeviceName == "FIN-WS-07"
+| where FileName =~ "powershell.exe"
+| project Timestamp,
+          DeviceName,
+          AccountName,
+          FileName,
+          ProcessCommandLine,
+          InitiatingProcessFileName,
+          InitiatingProcessCommandLine
+| order by Timestamp desc
