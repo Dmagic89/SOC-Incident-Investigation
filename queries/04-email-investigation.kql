@@ -1,0 +1,12 @@
+// Phishing email investigation
+// Purpose: Identify users who received the suspicious attachments
+// and determine the potential scope of the phishing campaign.
+
+EmailAttachmentInfo
+| where FileName in~ ("Invoice_September.docm", "Benefits_Update.zip")
+| project Timestamp,
+          RecipientEmailAddress,
+          SenderFromAddress,
+          FileName,
+          SHA256
+| order by Timestamp asc
